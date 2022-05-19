@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- // sa: swap a - swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements.
+    // sb: swap b - swap the first 2 elements at the top of stack b. Do nothing if there is only one or no elements.
+    // ss: sa and sb at the same time.
+    // pa: push a - take the first element at the top of b and put it at the top of a. Do nothing if b is empty.
+    // pb: push b - take the first element at the top of a and put it at the top of b. Do nothing if a is empty.
+    // ra: rotate a - shift up all elements of stack a by 1. The first element becomes the last one.
+    // rb: rotate b - shift up all elements of stack b by 1. The first element becomes the last one.
+    // rr: ra and rb at the same time.
+    // rra: reverse rotate a - shift down all elements of stack a by 1. The last element becomes the first one.
+    // rrb: reverse rotate b - shift down all elements of stack b by 1. The last element becomes the first one.
+    // rrr: rra and rrb at the same time. -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Push Swap</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        .stack {
+            border: 1px solid black;
+            display: block;
+            width: 100%;
+            height: 1500px;
+        }
+
+        .stack-item {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="text-center">
+            <button class="m-3 btn btn-primary" onclick="instructions_player('restart')">p</button>
+            <button class="m-3 btn btn-primary" onclick="instructions_player('play')">pp</button>
+            <button class="m-3 btn btn-primary" onclick="instructions_player('pause')">||</button>
+            <button class="m-3 btn btn-primary" onclick="instructions_player('play')">></button>
+            <button class="m-3 btn btn-primary" onclick="instructions_player('play')">>></button>
+            Push Swap online Checker
+        </h1>
+        <div class="row">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-6">
+                        <span id="stack_a" class="stack">
+
+                        </span>
+                    </div>
+                    <div class="col-6">
+                        <span id="stack_b" class="stack">
+
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-6">
+                        <textarea name="" id="numbers" cols="18" rows="10"></textarea>
+                    </div>
+                    <div class="col-6">
+                        <textarea name="" id="instructions" cols="18" rows="10"></textarea>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary m-auto d-block mt-4" onclick="check()">Check</button>
+                </div>
+                <div class=" row">
+                    <button onclick="click_instruction('sa')" class="btn btn-primary col-3 m-3">sa</button>
+                    <button onclick="click_instruction('sb')" class="btn btn-primary col-3 m-3">sb</button>
+                    <button onclick="click_instruction('ss')" class="btn btn-primary col-3 m-3">ss</button>
+                    <button onclick="click_instruction('pa')" class="btn btn-primary col-3 m-3">pa</button>
+                    <button onclick="click_instruction('pb')" class="btn btn-primary col-3 m-3">pb</button>
+                    <button onclick="click_instruction('ra')" class="btn btn-primary col-3 m-3">ra</button>
+                    <button onclick="click_instruction('rb')" class="btn btn-primary col-3 m-3">rb</button>
+                    <button onclick="click_instruction('rr')" class="btn btn-primary col-3 m-3">rr</button>
+                    <button onclick="click_instruction('rra')" class="btn btn-primary col-3 m-3">rra</button>
+                    <button onclick="click_instruction('rrb')" class="btn btn-primary col-3 m-3">rrb</button>
+                    <button onclick="click_instruction('rrr')" class="btn btn-primary col-3 m-3">rrr</button>
+                </div>
+                <!-- slider -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="slider m-auto d-block">
+                            <input type="range" min="0" max="100" value="10" class="slider" id="myRange"
+                                oninput="slider_value(this.value)">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="./instractions.js"></script>
+        <script src="./app.js"></script>
+</body>
+
+</html>
