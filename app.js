@@ -16,9 +16,11 @@ a = []
 
 b = []
 
-instructions = []
+instructions = [];
+played = 0;
 height = document.getElementById("myRange").value;
-
+a_init = [];
+state = 0;
 let formattedNumber = (number) => {
     return number.toLocaleString('en-US', {
         minimumIntegerDigits: 4,
@@ -98,11 +100,13 @@ function check() {
         return el != "";
     });
     a = numbers;
+    a_init = JSON.parse(JSON.stringify(a));
     b = [];
     _instructions = document.getElementById("instructions").value.split("\n")
 
     _instructions.forEach(element => {
         if (element.length > 0) {
+            played++;
             click_instruction(element)
         }
     });
@@ -123,26 +127,123 @@ instructions_player = (action) => {
         case "restart":
             restart()
             break;
+        case "next":
+            next();
+        case "back":
+            back();
         default:
             break;
     }
 }
+let timer;
 
 function play() {
-    if (instructions.length > 0) {
-        let action = instructions.shift();
-        click_instruction(action)
-        var t = setTimeout(play, 1000)
+    if (played < instructions.length) {
+        click_instruction(instructions[played])
+        played++;
+        clearTimeout(timer);
+        timer = setTimeout(play, 1000);
+        document.getElementById("play").innerHTML ='<i class="fa fa-pause"></i>';
+    } else {
+        document.getElementById("play").innerHTML ='<i class="fa fa-play"></i>';
+        clearTimeout(timer)
     }
 }
 
 function pause() {
-    clearTimeout(t)
+    if(state == 0)
+    {
+        document.getElementById("play").innerHTML ='<i class="fa fa-pause"></i>';
+        state = 1;
+        clearTimeout(timer);
+        play();
+    } else
+    {
+        document.getElementById("play").innerHTML = '<i class="fa fa-play"></i>';
+        state = 0;
+        console.log("not play");
+        clearTimeout(timer)
+    }
+    if(played == instructions.length)
+    {
+        restart()
+    }
 }
 
 function restart() {
-    instructions = instructions.concat(instructions)
-    play()
+    console.log(played);
+    a = JSON.parse(JSON.stringify(a_init));
+    b = [];
+    console.log(a);
+    render(a, b)
+    played = 0;
+    clearTimeout(timer);
+    play();
+}
+
+function next()
+{
+    if (played < instructions.length) {
+        click_instruction(instructions[played])
+        played++;
+    }
+}
+
+
+function back_from_instruction() {
+    console.log(b.length)
+    if(instructions[played] == "rrr")
+    {
+        rvr(a, b)
+    }
+    else if(instructions[played] == "rrb")
+    {
+        rv(b)
+    }
+    else if(instructions[played] == "rra")
+    {
+        rv(a)
+    }
+    else if(instructions[played] == "rr")
+    {
+        rr(a, b)
+    }
+    else if(instructions[played] == "rb")
+    {
+        r(b)
+    }
+    else if(instructions[played] == "ra")
+    {
+        r(a)
+    }
+    else if(instructions[played] == "pb")
+    {
+        p(a, b)
+    }
+    else if(instructions[played] == "pa")
+    {
+        p(b, a)
+    }
+    else if(instructions[played] == "ss")
+    {
+        ss(a, b)
+    }
+    else if(instructions[played] == "sb")
+    {
+        s(b)
+    }
+    else if(instructions[played] == "sa")
+    {
+        s(a)
+    }
+}
+function back()
+{
+    if(played)
+    {
+        back_from_instruction()
+        played--;
+    }
 }
 
 
